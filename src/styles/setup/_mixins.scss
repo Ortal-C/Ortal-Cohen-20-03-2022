@@ -1,0 +1,21 @@
+@mixin flex($align-item, $justify-content) {
+  display: flex;
+  align-items: $align-item;
+  justify-content: $justify-content;
+}
+
+@mixin overlay {
+  background-color: rgba($color: #000000, $alpha: 0.6);
+}
+
+@mixin mobile {
+  @media only screen and (max-width: $mobile-width) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media only screen and (max-width: $tablet-width) {
+    @content;
+  }
+}
