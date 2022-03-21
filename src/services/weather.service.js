@@ -1,22 +1,51 @@
-const KEY = 'weather'
+import { storageService } from './local-storage.service.js'
+const axios = require('axios')
+const KEY = 'weatherDB'
+const API_KEY = 'OXGZWJJ3iMSbkYY7BwQjwlGHaednFCPn'
 
-export const storageService = {
+export const weatherService = {
     query,
-    get,
+    getLocationKey,
     post,
     put,
     remove,
     postMany
 }
 
-function query(entityType) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || []
-    return Promise.resolve(entities)
+async function query(searchBy) {
+    let db = JSON.parse(localStorage.getItem(KEY)) || {}
+    if (db && db[searchBy]) {
+        return db[searchBy]
+    }
+    try {
+        const locationKey = await getLocationKey(searchBy);
+        const res = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`)
+        db[searchBy] = {
+            key: locationKey,
+            dailyForecasts: res.data.DailyForecasts,
+            headline: res.data.Headline
+        }
+        _save(KEY, db)
+        return db[searchBy]
+    } catch (err) {
+        console.log('Error in query service!', err)
+    }
 }
 
-async function get(entityType, entityId) {
-    const entities = await query(entityType)
-    return entities.find(entity => entity._id === entityId) || null
+async function getLocationKey(searchBy) {
+    let db = JSON.parse(localStorage.getItem(KEY)) || {}
+    if (db && db[searchBy]) return db[searchBy].key
+    else {
+        const query = searchBy.split(' ').join('%20')
+        try {
+            const res = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`)
+            db[searchBy] = { 'key': res.data[0].Key };
+            _save(KEY, db)
+            return res.data[0].Key;
+        } catch (err) {
+            console.log('Error!', err)
+        }
+    }
 }
 
 async function post(entityType, newEntity) {
