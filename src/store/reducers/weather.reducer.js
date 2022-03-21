@@ -1,16 +1,33 @@
 const INITIAL_STATE = {
-    weather: {},
+    isLoading: false,
+    currCityForecast: {},
 }
 
 
-export function weatherReducer(state = INITIAL_STATE, action) {
+export const SET_LOADING = 'SET_LOADING'
+export const SET_CURR_CITY_FORECAST = 'SET_CURR_CITY_FORECAST'
+export const SET_AUTOCOMPLETE = 'SET_AUTOCOMPLETE'
+export const SET_TRACK = 'SET_TRACK'
 
-    switch (action.type) {
-        // case 'SET_ROBOTS':
-        //     return {
-        //         ...state,
-        //         robots: [...action.robots]
-        //     };
+export function weatherReducer(state = INITIAL_STATE, { type, payload }) {
+
+    switch (type) {
+        case SET_LOADING:
+            return {
+                ...state,
+                isLoading: payload
+            };
+        case SET_CURR_CITY_FORECAST:
+            return {
+                ...state,
+                currCityForecast: payload
+            };
+
+        case SET_AUTOCOMPLETE:
+            return {
+                ...state,
+                autocomplete: payload
+            };
 
         // case 'ADD_ROBOT':
         //     return {
