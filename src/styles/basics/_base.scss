@@ -15,14 +15,22 @@ html {
 }
 
 body {
-	font-family: Montserrat;
-	line-height: 1.5;
-
+	height: 100vh;
+	padding: 0 $layout-padding;
+	
 	background-color: $body-bg;
 	color: $txt-clr;
+	
+	font-family: Montserrat;
+	line-height: 1.5;
+	
 
 	@include mobile {
 		margin-bottom: 3rem;
+		padding: 10px;
+	}
+	@include tablet {
+		padding: 30px;
 	}
 }
 
