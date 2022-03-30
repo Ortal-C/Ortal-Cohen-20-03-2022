@@ -1,10 +1,9 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { SET_DARK_MODE, SET_TEMPERATURE_UNIT } from '../../store/actions/weather.types.js'
 import './header.scss'
 
 export default function SettingsMenu({ isShow }) {
-	const temperatureUnit = useSelector((state) => state.weather.temperatureUnit)
 	const dispatch = useDispatch()
 	const setDarkMode = (e) => {
 		dispatch({ type: SET_DARK_MODE, payload: e.target.value === 'dark' })
