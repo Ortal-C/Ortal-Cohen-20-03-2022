@@ -5,7 +5,7 @@ export const KEY = 'weatherDB'
 const API_KEY = process.env.REACT_APP_ACCUWEATHER_API_KEY
 
 const axiosClient = axios.create({
-    baseURL: `http://dataservice.accuweather.com`,
+    baseURL: `https://dataservice.accuweather.com`,
 })
 
 async function searchCities(searchBy) {
