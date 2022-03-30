@@ -3,10 +3,11 @@ $body-bg: #f1f1f1;
 $brand-main-clr: #d8ac33;
 $brand-sec-clr: #cbe1f1;
 $main-clr: #ff0000;
-$txt-clr: #0f0f0f;
+$txt-clr: #2a4d7b;
+$content-bg: #ffffffA1;
 
 // BOX
-$box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+$box-shadow: rgba(100, 100, 111, 0.7) 0px 7px 29px 0px;
 $border-radius: 30px;
 
 // LAYOUT
@@ -15,4 +16,5 @@ $header-height: 15vh;
 
 // LAYOUT BREAKPOINTS
 $mobile-width: 600px;
+$tablet-width-narrow: 724px;
 $tablet-width: 1024px;

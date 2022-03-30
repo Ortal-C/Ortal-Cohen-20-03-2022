@@ -1,94 +1,93 @@
-import { storageService } from './local-storage.service.js'
-const axios = require('axios')
-const KEY = 'weatherDB'
-const API_KEY = 'OXGZWJJ3iMSbkYY7BwQjwlGHaednFCPn'
 
-export const weatherService = {
-    query,
-    getLocationKey,
-    post,
-    put,
-    remove,
-    postMany
+import { convertCToF, convertFToC, getRandomColor } from './util.service.js'
+import { getCityBg } from './image.service'
+const axios = require('axios')
+export const KEY = 'weatherDB'
+const API_KEY = process.env.REACT_APP_ACCUWEATHER_API_KEY
+
+const axiosClient = axios.create({
+    baseURL: `http://dataservice.accuweather.com`,
+})
+
+async function searchCities(searchBy) {
+    try {
+        const { data } = await axiosClient.get(`/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${searchBy}`)
+        return data.map(city => ({
+            key: city.Key,
+            name: city.LocalizedName,
+            country: city.Country.LocalizedName,
+        }))
+    } catch (err) {
+        console.log('Error in searchCities service:', err)
+        throw err;
+    }
 }
 
-async function query(searchBy) {
+async function getCurrCityByGeolocation(lat, lon) {
+    try {
+        const { data: city } = await axiosClient.get(`/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`)
+        return {
+            key: city.Key,
+            name: city.LocalizedName,
+            country: city.Country.LocalizedName,
+        }
+    } catch (err) {
+        console.log('Error in getCurrCityByGeolocation service:', err)
+        throw err;
+    }
+}
+
+async function loadForecast(cityData) {
+    const { key, name } = cityData
     let db = JSON.parse(localStorage.getItem(KEY)) || {}
-    if (db && db[searchBy]) {
-        return db[searchBy]
+    if (db && db[key]) {
+        return db[key]
     }
     try {
-        const locationKey = await getLocationKey(searchBy);
-        const res = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`)
-        db[searchBy] = {
-            key: locationKey,
-            dailyForecasts: res.data.DailyForecasts,
-            headline: res.data.Headline
+        const { data } = await axiosClient.get(`/forecasts/v1/daily/5day/${key}?apikey=${API_KEY}`)
+        const bg = await getCityBg(key, name)
+        console.log('Did an Accuweather API req');
+        db[key] = {
+            ...cityData,
+            bg,
+            forecasts: data.DailyForecasts.map(forecast => {
+                const { Minimum, Maximum } = forecast.Temperature
+                return {
+                    ...forecast,
+                    Temperature: {
+                        f: {
+                            maxVal: Maximum.Unit === 'C' ? convertCToF(Maximum.Value) : Maximum.Value,
+                            minVal: Minimum.Unit === 'C' ? convertCToF(Minimum.Value) : Minimum.Value
+                        },
+                        c: {
+                            maxVal: Maximum.Unit === 'F' ? convertFToC(Maximum.Value) : Maximum.Value,
+                            minVal: Minimum.Unit === 'F' ? convertFToC(Minimum.Value) : Minimum.Value
+                        }
+                    }
+                }
+            }),
+            headline: {
+                ...(data.Headline),
+                weatherType: {
+                    day: data.DailyForecasts[0].Day.IconPhrase,
+                    night: data.DailyForecasts[0].Night.IconPhrase,
+                }
+            },
+            color: getRandomColor(),
         }
         _save(KEY, db)
-        return db[searchBy]
+        return db[key]
     } catch (err) {
-        console.log('Error in query service!', err)
+        console.log('Error in loadForecast service:', err)
     }
-}
-
-async function getLocationKey(searchBy) {
-    let db = JSON.parse(localStorage.getItem(KEY)) || {}
-    if (db && db[searchBy]) return db[searchBy].key
-    else {
-        const query = searchBy.split(' ').join('%20')
-        try {
-            const res = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${query}`)
-            db[searchBy] = { 'key': res.data[0].Key };
-            _save(KEY, db)
-            return res.data[0].Key;
-        } catch (err) {
-            console.log('Error!', err)
-        }
-    }
-}
-
-async function post(entityType, newEntity) {
-    newEntity._id = _makeId()
-    const entities = await query(entityType)
-    entities.push(newEntity)
-    _save(entityType, entities)
-    return newEntity
-}
-
-async function postMany(entityType, newEntities) {
-    const entities = await query(entityType)
-    newEntities = newEntities.map(entity => ({ ...entity, _id: _makeId() }))
-    entities.push(...newEntities)
-    _save(entityType, entities)
-    return entities
-}
-
-async function put(entityType, updatedEntity) {
-    const entities = await query(entityType)
-    const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
-    entities.splice(idx, 1, updatedEntity)
-    _save(entityType, entities)
-    return updatedEntity
-}
-
-async function remove(entityType, entityId) {
-    const entities = await query(entityType)
-    const idx = entities.findIndex(entity => entity._id === entityId)
-    entities.splice(idx, 1)
-    _save(entityType, entities)
-    return entities
 }
 
 function _save(entityType, entities) {
     localStorage.setItem(entityType, JSON.stringify(entities))
 }
 
-function _makeId(length = 5) {
-    var text = ''
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-    return text
+export const weatherService = {
+    loadForecast,
+    searchCities,
+    getCurrCityByGeolocation,
 }

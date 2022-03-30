@@ -1,0 +1,14 @@
+@use '../styles/styles.scss' as *;
+.favorites{
+	width: 85vw;
+	margin:auto;
+	.favorites-container{
+		height: 80vh;
+		overflow-y: scroll;
+		@include flex(flex-start, space-evenly);
+		gap: 20px;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+}
+

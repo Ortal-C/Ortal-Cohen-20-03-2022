@@ -1,0 +1,60 @@
+@use '../../styles/styles.scss' as *;
+
+.header {
+	background-color: $content-bg;
+	box-shadow: $box-shadow;
+	height: $header-height;
+	width: 85vw;
+	margin: auto;
+	border-radius: 0 0 2em 2em;
+	padding: 2rem;
+	margin-bottom: 2.5vh;
+	@include flex(center, space-between);
+	&__nav {
+		@include flex(center, space-between);
+		& > * {
+			padding: 10px 20px;
+			position: relative;
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 0;
+				transition: width 0.5s ease;
+				height: 2px;
+				background-color: $txt-clr;
+			}
+			&.active::after,
+			&:hover::after {
+				width: 100%;
+			}
+			transition: height 0.3 ease, background-color 0.3 ease;
+		}
+	}
+}
+
+.settings-menu {
+	position: absolute;
+	top: 7vh;
+	right: 0;
+	z-index: 1;
+	@include flex(center, center);
+
+	& > * {
+		@include flex(center, center);
+	}
+	h4 {
+		font-size: 1rem;
+		padding: 0 10px;
+		border-inline-end: 1px solid $txt-clr;
+		margin-inline-start: 50px;
+	}
+	button {
+		cursor: pointer;
+		background: none;
+		padding: 0 1rem;
+		border: none;
+	}
+}

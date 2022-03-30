@@ -19,3 +19,10 @@
     @content;
   }
 }
+
+@mixin tablet-narrow {
+  @media only screen and (max-width: $tablet-width-narrow) {
+    @content;
+  }
+}
+

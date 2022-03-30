@@ -1,13 +1,33 @@
-const INITIAL_STATE = {
-    isLoading: false,
-    currCityForecast: {},
+import {
+    SET_LOADING,
+    SET_CURR_CITY,
+    SET_CURR_CITY_FORECAST,
+    SET_CURR_DAY_TIME,
+    SET_AUTOCOMPLETE_CITIES,
+    ADD_CITY_TO_FAVORITES,
+    REMOVE_FAVORITE_CITY_FROM_FAVORITES,
+    SET_DARK_MODE,
+    SET_TEMPERATURE_UNIT
+} from '../actions/weather.types'
+
+const temperatureUnit = {
+    F: 'f',
+    C: 'c',
 }
 
-
-export const SET_LOADING = 'SET_LOADING'
-export const SET_CURR_CITY_FORECAST = 'SET_CURR_CITY_FORECAST'
-export const SET_AUTOCOMPLETE = 'SET_AUTOCOMPLETE'
-export const SET_TRACK = 'SET_TRACK'
+const INITIAL_STATE = {
+    isLoading: false,
+    isDarkMode: false,
+    temperatureUnit: temperatureUnit.F,
+    currCity: {
+        key: '215854',
+        name: 'Tel Aviv',
+        country: 'Israel',
+    },
+    currCityForecast: {},
+    favorites: {},
+    autocompleteCities: [],
+}
 
 export function weatherReducer(state = INITIAL_STATE, { type, payload }) {
 
@@ -17,43 +37,57 @@ export function weatherReducer(state = INITIAL_STATE, { type, payload }) {
                 ...state,
                 isLoading: payload
             };
+        case SET_CURR_CITY:
+            return {
+                ...state,
+                currCity: payload
+            };
         case SET_CURR_CITY_FORECAST:
             return {
                 ...state,
                 currCityForecast: payload
             };
-
-        case SET_AUTOCOMPLETE:
+        case SET_CURR_DAY_TIME: {
+            const hours = new Date().getHours()
             return {
                 ...state,
-                autocomplete: payload
+                dayTime: hours > 6 && hours < 20 ? 'day' : 'night'
+            }
+        }
+
+        case SET_AUTOCOMPLETE_CITIES:
+            return {
+                ...state,
+                autocompleteCities: payload
             };
-
-        // case 'ADD_ROBOT':
-        //     return {
-        //         ...state,
-        //         robots: [...state.robots, action.robot]
-        //     }
-
-        // case 'REMOVE_ROBOT':
-        //     return {
-        //         ...state,
-        //         robots: state.robots.filter(robot => robot._id !== action.robotId)
-        //     }
-
-        // case 'UPDATE_ROBOT':
-        //     return {
-        //         ...state,
-        //         robots: state.robots.map(robot => robot._id === action.robot._id ? action.robot : robot)
-        //     }
-        // case 'SET_FILTER_BY':
-        //     return {
-        //         ...state,
-        //         filterBy: { ...action.filterBy }
-        //     }
-
+        case ADD_CITY_TO_FAVORITES: {
+            const { key, cityForecast } = payload
+            return {
+                ...state,
+                favorites: {
+                    ...state.favorites,
+                    [key]: cityForecast
+                }
+            };
+        }
+        case REMOVE_FAVORITE_CITY_FROM_FAVORITES: {
+            const newState = JSON.parse(JSON.stringify(state));
+            delete newState.favorites[payload]
+            return newState;
+        }
+        case SET_DARK_MODE: {
+            return {
+                ...state,
+                isDarkMode: payload
+            }
+        }
+        case SET_TEMPERATURE_UNIT: {
+            return {
+                ...state,
+                temperatureUnit: payload
+            }
+        }
         default:
             return state;
     }
-
 }
