@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Ortal-Cohen-20-03-2022/static/css/main.c51dc376.css",
-    "main.js": "/Ortal-Cohen-20-03-2022/static/js/main.bcda278d.js",
+    "main.js": "/Ortal-Cohen-20-03-2022/static/js/main.a683916d.js",
     "static/media/snowy.jpg": "/Ortal-Cohen-20-03-2022/static/media/snowy.5a0b9f400113de89a33f.jpg",
     "static/media/sunny.jpg": "/Ortal-Cohen-20-03-2022/static/media/sunny.d3535c1ce12414140ea7.jpg",
     "static/media/hazy.jpg": "/Ortal-Cohen-20-03-2022/static/media/hazy.cb238eac782fdad45b34.jpg",
@@ -22,10 +22,10 @@
     "static/media/snowy.svg": "/Ortal-Cohen-20-03-2022/static/media/snowy.a3410879901c8659861b4ba403cb78bc.svg",
     "index.html": "/Ortal-Cohen-20-03-2022/index.html",
     "main.c51dc376.css.map": "/Ortal-Cohen-20-03-2022/static/css/main.c51dc376.css.map",
-    "main.bcda278d.js.map": "/Ortal-Cohen-20-03-2022/static/js/main.bcda278d.js.map"
+    "main.a683916d.js.map": "/Ortal-Cohen-20-03-2022/static/js/main.a683916d.js.map"
   },
   "entrypoints": [
     "static/css/main.c51dc376.css",
-    "static/js/main.bcda278d.js"
+    "static/js/main.a683916d.js"
   ]
 }
