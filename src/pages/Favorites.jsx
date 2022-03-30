@@ -15,6 +15,8 @@ export default function Favorites() {
 		<div className='favorites'>
 			{favorites && (
 				<div className='favorites-container'>
+					{Object.values(favorites).length === 0 &&
+						'There are no favorites yet.'}
 					{Object.values(favorites)?.map((favorite, idx) => (
 						<WeatherCard key={favorite.key} favorite={favorite} />
 					))}
