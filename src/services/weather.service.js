@@ -1,6 +1,5 @@
 
-import { convertCToF, convertFToC, getRandomColor } from './util.service.js'
-import { getCityBg } from './image.service'
+import { convertCToF, convertFToC } from './util.service.js'
 const axios = require('axios')
 export const KEY = 'weatherDB'
 const API_KEY = process.env.REACT_APP_ACCUWEATHER_API_KEY
@@ -38,18 +37,16 @@ async function getCurrCityByGeolocation(lat, lon) {
 }
 
 async function loadForecast(cityData) {
-    const { key, name } = cityData
+    const { key } = cityData
     let db = JSON.parse(localStorage.getItem(KEY)) || {}
     if (db && db[key]) {
         return db[key]
     }
     try {
         const { data } = await axiosClient.get(`/forecasts/v1/daily/5day/${key}?apikey=${API_KEY}`)
-        const bg = await getCityBg(key, name)
         console.log('Did an Accuweather API req');
         db[key] = {
             ...cityData,
-            bg,
             forecasts: data.DailyForecasts.map(forecast => {
                 const { Minimum, Maximum } = forecast.Temperature
                 return {
@@ -72,8 +69,7 @@ async function loadForecast(cityData) {
                     day: data.DailyForecasts[0].Day.IconPhrase,
                     night: data.DailyForecasts[0].Night.IconPhrase,
                 }
-            },
-            color: getRandomColor(),
+            }
         }
         _save(KEY, db)
         return db[key]
