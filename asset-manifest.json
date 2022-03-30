@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/Ortal-Cohen-20-03-2022/static/css/main.c51dc376.css",
+    "main.js": "/Ortal-Cohen-20-03-2022/static/js/main.bcda278d.js",
+    "static/media/snowy.jpg": "/Ortal-Cohen-20-03-2022/static/media/snowy.5a0b9f400113de89a33f.jpg",
+    "static/media/sunny.jpg": "/Ortal-Cohen-20-03-2022/static/media/sunny.d3535c1ce12414140ea7.jpg",
+    "static/media/hazy.jpg": "/Ortal-Cohen-20-03-2022/static/media/hazy.cb238eac782fdad45b34.jpg",
+    "static/media/cloudy.jpg": "/Ortal-Cohen-20-03-2022/static/media/cloudy.8067b293d9efd91bdbd0.jpg",
+    "static/media/moon.jpg": "/Ortal-Cohen-20-03-2022/static/media/moon.770a7ed5dbe73e65bc41.jpg",
+    "static/media/foggy.jpg": "/Ortal-Cohen-20-03-2022/static/media/foggy.f90caa9520e76befc20b.jpg",
+    "static/media/stormy.jpg": "/Ortal-Cohen-20-03-2022/static/media/stormy.a7565e4f440e81b17634.jpg",
+    "static/media/rainy.jpg": "/Ortal-Cohen-20-03-2022/static/media/rainy.aab7e26d884b2ec8ce18.jpg",
+    "static/media/Montserrat.ttf": "/Ortal-Cohen-20-03-2022/static/media/Montserrat.3cd786652b8a2e9d41f2.ttf",
+    "static/media/stormy.svg": "/Ortal-Cohen-20-03-2022/static/media/stormy.c7df6fd085458704e26010c4b51b1dd5.svg",
+    "static/media/sunny.svg": "/Ortal-Cohen-20-03-2022/static/media/sunny.068a54389ca1a54985dc45d6bdc82923.svg",
+    "static/media/rainy.svg": "/Ortal-Cohen-20-03-2022/static/media/rainy.8adc0dda66bf5966f8817b65b7a79042.svg",
+    "static/media/foggy.svg": "/Ortal-Cohen-20-03-2022/static/media/foggy.7a4b529a70a7e55a0693cbc03c25041d.svg",
+    "static/media/hazy.svg": "/Ortal-Cohen-20-03-2022/static/media/hazy.7a4b529a70a7e55a0693cbc03c25041d.svg",
+    "static/media/cloudy.svg": "/Ortal-Cohen-20-03-2022/static/media/cloudy.0e8111e285bac322fa587c2ab7f97d83.svg",
+    "static/media/moon.svg": "/Ortal-Cohen-20-03-2022/static/media/moon.ba7a16deaa17ef5521d1097c01708efe.svg",
+    "static/media/logo.svg": "/Ortal-Cohen-20-03-2022/static/media/logo.59cc9243e4198a3bc74377e3e760fa10.svg",
+    "static/media/snowy.svg": "/Ortal-Cohen-20-03-2022/static/media/snowy.a3410879901c8659861b4ba403cb78bc.svg",
+    "index.html": "/Ortal-Cohen-20-03-2022/index.html",
+    "main.c51dc376.css.map": "/Ortal-Cohen-20-03-2022/static/css/main.c51dc376.css.map",
+    "main.bcda278d.js.map": "/Ortal-Cohen-20-03-2022/static/js/main.bcda278d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c51dc376.css",
+    "static/js/main.bcda278d.js"
+  ]
+}
