@@ -102,7 +102,11 @@ export default function Home() {
 				/>
 				<Tooltip title='Show Current Location' onClick={handleShowCurrentLocation}>
 					<IconButton>
-						<MyLocation />
+						<MyLocation
+							sx={{
+								color: `${isDarkMode ? '#cbe1f1' : ''}`,
+							}}
+						/>
 					</IconButton>
 				</Tooltip>
 			</div>
