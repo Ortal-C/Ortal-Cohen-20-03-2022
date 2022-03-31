@@ -20,9 +20,15 @@ const iconMap = {
 	sunny,
 }
 
-export default function WeatherIcon({ desc }) {
+export default function WeatherIcon({ desc, isDarkMode }) {
 	const weatherCondition = useMemo(() => {
 		return parseWeatherDescToCondition(desc)
 	}, [desc])
-	return <img className='weather-icon' src={iconMap[weatherCondition]} alt='weather_icon' />
+	return (
+		<img
+			className={`weather-icon ${isDarkMode ? 'dark' : ''}`}
+			src={iconMap[weatherCondition]}
+			alt='weather_icon'
+		/>
+	)
 }

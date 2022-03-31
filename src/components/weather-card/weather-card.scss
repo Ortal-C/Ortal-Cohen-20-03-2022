@@ -4,16 +4,26 @@
 	text-align: center;
 	height: 80%;
 	padding: 10px;
-	&__favorite{
+	&__favorite {
 		background-color: $content-bg;
 		box-shadow: $box-shadow;
 		width: 200px;
 		height: 38vh;
 		border-radius: 1em;
 		padding: 2rem;
+		&.dark {
+			background-color: $content-bg-dark;
+			color: $txt-clr-dark;
+			box-shadow: none;
+		}
 	}
 	&__info{
 		@include flex(center, center);
 		flex-direction: column;
+	}
+	&.dark {
+		background-color: $content-bg-dark;
+		color: $txt-clr-dark;
+		box-shadow: none;
 	}
 }

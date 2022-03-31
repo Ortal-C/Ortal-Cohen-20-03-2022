@@ -5,11 +5,15 @@
 	height: 80vh;
 	margin: auto;
 	&__search-box {
-		@include flex(center,space-between);
-		
+		@include flex(center, space-between);
 	}
 	&__main-content {
 		&__header {
+			&.dark {
+				background-color: $content-bg-dark;
+				color: $txt-clr-dark;
+				box-shadow: none;
+			}
 			background-color: $content-bg;
 			box-shadow: $box-shadow;
 			padding: 2rem;
@@ -27,7 +31,7 @@
 					font-size: 4rem;
 					line-height: 1;
 				}
-				&__text{
+				&__text {
 					width: 400px;
 				}
 			}

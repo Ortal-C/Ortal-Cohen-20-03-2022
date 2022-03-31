@@ -33,6 +33,12 @@
 			transition: height 0.3 ease, background-color 0.3 ease;
 		}
 	}
+
+	&.dark {
+		background-color: $content-bg-dark;
+		color: $txt-clr-dark;
+		box-shadow: none;
+	}
 }
 
 .settings-menu {
@@ -56,5 +62,11 @@
 		background: none;
 		padding: 0 1rem;
 		border: none;
+	}
+
+	&.dark {
+		button {
+			color: $txt-clr-dark;
+		}
 	}
 }

@@ -1,11 +1,16 @@
 @use '../../styles/styles.scss' as *;
 
 .weather-list {
-    @include flex(center, space-between);
-			box-shadow: $box-shadow;
-    background-color: $content-bg;
-    padding: 2rem;
-    padding-bottom: 0;
-    height: 40vh;
-    border-radius: 1em 1em 0 0;
+	@include flex(center, space-between);
+	box-shadow: $box-shadow;
+	background-color: $content-bg;
+	padding: 2rem;
+	padding-bottom: 0;
+	height: 40vh;
+	border-radius: 1em 1em 0 0;
+	&.dark {
+		background-color: $content-bg-dark;
+		color: $txt-clr-dark;
+		box-shadow: none;
+	}
 }

@@ -9,7 +9,7 @@ import { Tooltip, IconButton } from '@mui/material'
 import { removeCityFromFavorites } from '../../store/actions/weather.actions'
 import { SET_CURR_CITY } from '../../store/actions/weather.types.js'
 
-export default function WeatherCard({ day = null, favorite = null }) {
+export default function WeatherCard({ day = null, favorite = null, isDarkMode }) {
 	let navigate = useNavigate()
 	const dispatch = useDispatch()
 	const currDayTime = useSelector((state) => state.weather.dayTime)
@@ -29,12 +29,15 @@ export default function WeatherCard({ day = null, favorite = null }) {
 	}
 
 	return (
-		<div className={className} onClick={handleShowFavorite}>
+		<div
+			className={`${className} ${isDarkMode ? ' dark' : ''}`}
+			onClick={handleShowFavorite}
+		>
 			{day && (
 				<div className='weather-card__info'>
 					<h2>{getDayByDate(day.Date)}</h2>
 					<h3>{new Date(day.Date).toLocaleDateString('he-il')}</h3>
-					<WeatherIcon desc={day.Day.IconPhrase} />
+					<WeatherIcon desc={day.Day.IconPhrase} isDarkMode={isDarkMode} />
 					<p>{temperatureStr(day.Temperature, temperatureUnit)}</p>
 				</div>
 			)}
@@ -44,6 +47,7 @@ export default function WeatherCard({ day = null, favorite = null }) {
 						<h2>{favorite.name}</h2>
 						<WeatherIcon
 							desc={favorite.headline.weatherType[currDayTime]}
+							isDarkMode={isDarkMode}
 						/>
 						<h3>
 							{temperatureStr(

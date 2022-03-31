@@ -23,6 +23,7 @@ import WeatherList from '../components/weather-list/WeatherList'
 
 export default function Home() {
 	const dispatch = useDispatch()
+	const isDarkMode = useSelector((state) => state.weather.isDarkMode)
 	const autocompleteCities = useSelector((state) => state.weather.autocompleteCities)
 	const currCity = useSelector((state) => state.weather.currCity)
 	const currCityForecast = useSelector((state) => state.weather.currCityForecast)
@@ -47,9 +48,14 @@ export default function Home() {
 	useEffect(() => {
 		if (weatherType && weatherType[currDayTime]) {
 			const weatherBg = `${parseWeatherDescToCondition(weatherType[currDayTime])}.jpg`
-			document.body.style.backgroundImage = `url(${require(`../assets/bg/${currDayTime}/${weatherBg}`)})`
+			if (isDarkMode) {
+				document.body.style.backgroundColor = '#121212'
+				document.body.style.backgroundImage = 'none'
+			} else {
+				document.body.style.backgroundImage = `url(${require(`../assets/bg/${currDayTime}/${weatherBg}`)})`
+			}
 		}
-	}, [weatherType, currDayTime])
+	}, [weatherType, currDayTime, isDarkMode])
 
 	const handleSelectCity = useCallback(
 		(city) => {
@@ -94,11 +100,7 @@ export default function Home() {
 					handleSelectCity={handleSelectCity}
 					handleSearchStringChange={handleSearchStringChange}
 				/>
-				<Tooltip
-					title='Show Current Location'
-					onClick={handleShowCurrentLocation}
-					style={{ backgroundColor: 'white' }}
-				>
+				<Tooltip title='Show Current Location' onClick={handleShowCurrentLocation}>
 					<IconButton>
 						<MyLocation />
 					</IconButton>
@@ -106,7 +108,11 @@ export default function Home() {
 			</div>
 			<div className='home__main-content'>
 				{currCity && currCityForecast && currCityForecast.forecasts && (
-					<div className='home__main-content__header'>
+					<div
+						className={`home__main-content__header${
+							isDarkMode ? ' dark' : ''
+						}`}
+					>
 						<div className='home__main-content__header__title'>
 							<div>
 								<h1>{`${currCity.name}, ${currCity.country}`}</h1>
@@ -125,6 +131,7 @@ export default function Home() {
 									{!isFavorite ? (
 										<FavoriteBorderOutlined
 											sx={{
+												color: 'white',
 												fontSize: '3.5rem',
 											}}
 										/>
@@ -146,6 +153,7 @@ export default function Home() {
 										currDayTime
 									]
 								}
+								isDarkMode={isDarkMode}
 							/>
 							<div>
 								<h1>{headerTemperatureStr}</h1>
@@ -162,7 +170,10 @@ export default function Home() {
 					</div>
 				)}
 				{currCityForecast && currCityForecast.forecasts && (
-					<WeatherList forecasts={currCityForecast.forecasts} />
+					<WeatherList
+						forecasts={currCityForecast.forecasts}
+						isDarkMode={isDarkMode}
+					/>
 				)}
 			</div>
 		</div>

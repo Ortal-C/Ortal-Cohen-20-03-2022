@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import WeatherCard from '../components/weather-card/WeatherCard'
 import './favorites.scss'
@@ -6,11 +6,6 @@ import './favorites.scss'
 export default function Favorites() {
 	const isDarkMode = useSelector((state) => state.weather.isDarkMode)
 	const favorites = useSelector((state) => state.weather.favorites) || {}
-	useEffect(() => {
-		document.body.style.backgroundColor = isDarkMode ? '#222222' : '#ffffff'
-		document.body.style.backgroundImage = 'none'
-	}, [isDarkMode])
-
 	return (
 		<div className='favorites'>
 			{favorites && (
@@ -18,7 +13,11 @@ export default function Favorites() {
 					{Object.values(favorites).length === 0 &&
 						'There are no favorites yet.'}
 					{Object.values(favorites)?.map((favorite, idx) => (
-						<WeatherCard key={favorite.key} favorite={favorite} />
+						<WeatherCard
+							key={favorite.key}
+							favorite={favorite}
+							isDarkMode={isDarkMode}
+						/>
 					))}
 				</div>
 			)}

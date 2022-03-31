@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import Logo from '../../assets/Logo'
 import SettingsMenu from './SettingsMenu'
@@ -17,12 +18,13 @@ const headerNavLinks = [
 
 export default function Header() {
 	const { pathname } = useLocation()
+	const isDarkMode = useSelector((state) => state.weather.isDarkMode)
 	const [isSettingsMenuShown, setIsSettingsMenuShown] = useState(false)
 	const toggleSettingsMenuDisplay = () => {
 		setIsSettingsMenuShown((prevState) => !prevState)
 	}
 	return (
-		<div className='header'>
+		<div className={`header${isDarkMode ? ' dark' : ''}`}>
 			<Logo />
 			<div className='header__nav'>
 				{headerNavLinks.map((link, idx) => (
@@ -37,7 +39,12 @@ export default function Header() {
 				))}
 				<div title='Settings' onClick={toggleSettingsMenuDisplay}>
 					Settings
-					{isSettingsMenuShown && <SettingsMenu isShow={isSettingsMenuShown} />}
+					{isSettingsMenuShown && (
+						<SettingsMenu
+							isShow={isSettingsMenuShown}
+							isDark={isDarkMode}
+						/>
+					)}
 				</div>
 			</div>
 		</div>

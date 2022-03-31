@@ -68,6 +68,9 @@ iframe {
 }
 
 .weather-icon {
+	&.dark{
+		filter: none;
+	}
 	filter: invert(28%) sepia(9%) saturate(3090%) hue-rotate(175deg) brightness(45%) contrast(97%);
 	margin: 0.5rem 0;
 	@include tablet {

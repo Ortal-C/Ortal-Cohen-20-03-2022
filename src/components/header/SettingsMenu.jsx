@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { SET_DARK_MODE, SET_TEMPERATURE_UNIT } from '../../store/actions/weather.types.js'
 import './header.scss'
 
-export default function SettingsMenu({ isShow }) {
+export default function SettingsMenu({ isShow, isDark }) {
 	const dispatch = useDispatch()
 	const setDarkMode = (e) => {
 		dispatch({ type: SET_DARK_MODE, payload: e.target.value === 'dark' })
@@ -12,7 +12,7 @@ export default function SettingsMenu({ isShow }) {
 		dispatch({ type: SET_TEMPERATURE_UNIT, payload: e.target.value })
 	}
 	return (
-		<div className='settings-menu'>
+		<div className={`settings-menu ${isDark ? 'dark' : ''}`}>
 			{isShow && (
 				<>
 					<h4>Theme</h4>
