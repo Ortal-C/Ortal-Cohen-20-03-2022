@@ -15,6 +15,7 @@
 		& > * {
 			padding: 10px 20px;
 			position: relative;
+			color: $txt-clr;
 			&::after {
 				content: '';
 				position: absolute;
@@ -31,6 +32,9 @@
 				width: 100%;
 			}
 			transition: height 0.3 ease, background-color 0.3 ease;
+		}
+		&.dark > * {
+			color: $txt-clr-dark;
 		}
 	}
 

@@ -24,9 +24,9 @@ export default function Header() {
 		setIsSettingsMenuShown((prevState) => !prevState)
 	}
 	return (
-		<div className={`header${isDarkMode ? ' dark' : ''}`}>
+		<div className={`header ${isDarkMode ? 'dark' : ''}`}>
 			<Logo />
-			<div className='header__nav'>
+			<div className={`header__nav ${isDarkMode ? 'dark' : ''}`}>
 				{headerNavLinks.map((link, idx) => (
 					<Link
 						key={idx}
