@@ -58,7 +58,11 @@ export default function WeatherCard({ day = null, favorite = null, isDarkMode })
 
 						<Tooltip onClick={handleRemove} title='Delete From Favorites.'>
 							<IconButton>
-								<Delete />
+								<Delete
+									sx={{
+										color: `${isDarkMode ? '#cbe1f1' : ''}`,
+									}}
+								/>
 							</IconButton>
 						</Tooltip>
 					</div>
